@@ -42,11 +42,11 @@ input_loop:
 convert:
     cmp si, offset buffer
     je entry_loop
-    dec si
-    mov bx, 0  ; Степень 8
+    dec si      ; Иду с конца
+    mov bx, 0   ; Степень 8
     mov num, 0  ; Число
 
-curr_num_loop:
+curr_num_loop:  ; Перевод текущего числа
     mov ax, 1h
     mov dx, 8h
 

@@ -11,7 +11,7 @@ STK SEGMENT PARA STACK 'STACK'
 STK ENDS
 
 DSEG SEGMENT PARA PUBLIC 'DATA'
-    menu_text db "1. Enter oct"	; Меню
+    menu_text db "1. Enter uoct"	; Меню
               db 0Ah, 0Dh
               db "2. Convert to uhex"
               db 0Ah, 0Dh
