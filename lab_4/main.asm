@@ -119,7 +119,7 @@ input_loop:
     ; Ошибка в числе
     cmp al, 9
     jg err_inp
-    cmp al, 1
+    cmp al, 0
     jl err_inp
     ; ----------
 
