@@ -1,7 +1,8 @@
 EXTRN mtr:       byte
-EXTRN n:         byte
-EXTRN m:         byte
-EXTRN size_mtr:  byte
+EXTRN n_max:      byte
+EXTRN m_max:      byte
+EXTRN max_size:  byte
+EXTRN size_mtr: byte
 EXTRN newline:   byte
 PUBLIC del_max_row      ; Удаление максимальной строки
 PUBLIC prn_mtr          ; Вывод матрицы
@@ -19,7 +20,7 @@ CSEG SEGMENT PARA PUBLIC 'CODE'
 	assume CS:CSEG, DS:DSEG
 del_max_row proc near   ; Удаление максимальной строки
 	mov si, offset mtr
-    mov cl, size_mtr
+    mov cl, max_size
 
     ; Нахождение id строки
 find_max_sum_loop:
@@ -31,13 +32,13 @@ find_max_sum_loop:
     mov curr_sum, al
 
     mov ah, 0h
-    mov al, size_mtr
+    mov al, max_size
     sub al, cl
-    mov bl, m
+    mov bl, m_max
     div bl
     mov curr_row, al
     inc ah
-    cmp ah, m
+    cmp ah, m_max
     je is_eq
     jmp end_check
 is_eq:
@@ -61,9 +62,9 @@ end_check:
     ; Удаление строки
     mov al, max_sum_row
     inc ax
-    mul m
+    mul m_max
 
-    mov cl, size_mtr
+    mov cl, max_size
     sub cx, ax
     jz decs
 
@@ -71,7 +72,7 @@ end_check:
     add si, ax
 
     mov al, max_sum_row
-    mul m
+    mul m_max
     mov di, offset mtr
     add di, ax
 
@@ -83,10 +84,10 @@ move_loop:
     loop move_loop
 
 decs:
-    dec n
-    mov al, size_mtr
-    sub al, m
-    mov size_mtr, al
+    dec n_max
+    mov al, max_size
+    sub al, m_max
+    mov max_size, al
     ; --------------------
 
 	ret
@@ -94,14 +95,14 @@ del_max_row endp
 
 prn_mtr proc near   ; Вывод матрицы
     mov si, offset mtr
-    mov cl, size_mtr
+    mov cl, max_size
     cmp cl, 0
     jz end_prn
 prn_loop:
     mov ah, 0h
-    mov al, size_mtr
+    mov al, max_size
     sub al, cl
-    mov bl, m
+    mov bl, m_max
     div bl
     cmp ah, 0
     jz is_z
@@ -115,6 +116,10 @@ end_check:
     mov dl, [si]
     inc si
     add dl, '0'
+    cmp dl, '0'
+    jne skip
+    mov dl, ' '
+skip:
     mov ah, 02h
     int 21h
     mov dl, ' '

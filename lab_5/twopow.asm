@@ -23,15 +23,16 @@ find_two_pow proc near
     lea dx, two_pow_msg
     int 21h
 
-    mov ax, num
+    mov ax, num     ; При нуле нет кратной степени 2
     cmp ax, 0
     jz err_zero
 
-    bsf bx, ax
+    bsf bx, ax      ; Первая 1 справа - искомая степень
 
     xor ax, ax
 
-    bts ax, bx
+    bts ax, bx      ; Вывод степени двойки
+    dec ax
 
     lea di, buf
     xor cx, cx

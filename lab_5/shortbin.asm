@@ -25,9 +25,9 @@ prn_short_sbin proc near
     mov ax, num
     xor ah, ah
 
-    bt ax, 7h
-    push ax
+    bt ax, 7h   ; Проверка на знак
     jnc skip_minus
+    push ax
     mov dl, '-'
     mov ah, 02h
     int 21h
@@ -40,7 +40,7 @@ skip_minus:
     rol al,1  
     lea di, buf
  
-btbs_lp:
+btbs_lp:        ; Вывод 7 бит
     rol al,1         
     jc btbs_1
     mov bl, '0'

@@ -1,6 +1,8 @@
 PUBLIC mtr
-PUBLIC n
+PUBLIC n_max
+PUBLIC m_max
 PUBLIC m
+PUBLIC max_size
 PUBLIC size_mtr
 PUBLIC newline
 EXTRN del_max_row: near
@@ -15,15 +17,20 @@ DSEG SEGMENT PARA PUBLIC 'DATA'
     entr_m db 'Enter m: $'
     entr_num db 'Enter $'
     entr_comma db ',$'
-    entr_colon db ': $'
+    entr_colon db '(1-9): $'
     mtr_msg db 'Matrix:$'       ; Сообщения вывода матрицы
     res_msg db 'Result:$'
     err_msg db 'ERROR $'        ; Сообщение об ошибке
     newline db 0Ah, 0Dh, '$'    ; \n
-    mtr db 81 dup(?)            ; Матрица
+    mtr db 81 dup(0)            ; Матрица
     n db ?
     m db ?
-    size_mtr db ? 
+    i db ?
+    j db ?
+    n_max db 9
+    m_max db 9
+    size_mtr db ?
+    max_size db 81
 DSEG ENDS
 
 CSEG SEGMENT PARA PUBLIC 'CODE'
@@ -83,52 +90,40 @@ main:
     ; Ввод элементов матрицы
     mov si, offset mtr
     mov cl, size_mtr
-input_loop:
-    ; Приглашение ввода
-    mov ah, 09h
-    lea dx, entr_num
-    int 21h
-    mov ah, 0h
-    mov al, size_mtr
-    sub al, cl
-    mov bl, m
-    div bl
-    mov dl, al ; i
-    mov bl, ah ; j
-    add dl, '0'
-    mov ah, 02h
-    int 21h
-    mov ah, 09h
-    lea dx, entr_comma
-    int 21h
-    mov dl, bl
-    add dl, '0'
-    mov ah, 02h
-    int 21h
-    mov ah, 09h
-    lea dx, entr_colon
-    int 21h
-    ; ----------
 
-    ; Ввод цифры
+    mov si, 0
+    mov i, 0
+    mov j, 0
+
+    mov ah, 02h 
+    mov dl, 0Ah
+    int 21h
+read_mtr:
     mov ah, 01h
     int 21h
     sub al, '0'
-    ; ----------
+    mov bl, al
 
-    ; Ошибка в числе
-    cmp al, 9
-    jg err_inp
-    cmp al, 0
-    jl err_inp
-    ; ----------
+    mov dl, ' '
+    mov ah, 02h
+    int 21h    
+    mov dl, bl
 
-    mov [si], al
-    inc si
-    mov ah, 09h
-    lea dx, newline
-    int 21h
-    loop input_loop
+    mov al, i
+    mov bl, 9
+    mul bl
+    add al, j
+    mov si, ax
+
+    mov mtr[si], dl
+    
+    inc j
+
+    mov al, j
+    cmp al, m
+    je newline_prn
+cont:
+    loop read_mtr
     ; --------------------
 
     ; Вывод исходной матрицы
@@ -160,6 +155,14 @@ input_loop:
     
     mov ax, 4c00h
     int 21h
+newline_prn:
+    inc i
+    mov j, 0
+    
+    mov ah, 02h 
+    mov dl, 0Ah
+    int 21h
+    jmp cont
 err_inp:
     mov ah, 09h
     lea dx, newline
@@ -172,5 +175,6 @@ err_inp:
     int 21h
     mov ax, 4c01h
     int 21h
+
 CSEG ENDS
 END main
