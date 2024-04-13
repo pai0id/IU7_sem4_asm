@@ -3,4 +3,5 @@ lec_docs
 *.obj
 *.EXE
 *.OBJ
+*.COM
 CodeView
