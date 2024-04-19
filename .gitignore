@@ -5,3 +5,4 @@ lec_docs
 *.OBJ
 *.COM
 CodeView
+.vscode
