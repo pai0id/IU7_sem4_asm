@@ -2,16 +2,13 @@ section .text
     global asmFunc
 
 asmFunc:
-    ; mov rbp, rsp
+    ; sysv_abi
+    mov rcx, rdx ; размер
+    inc rcx
 
-    ; mov rdi, [rbp + 8]  ; Accessing the first argument
-    ; mov rsi, [rbp + 12]  ; Accessing the second argument
-    ; mov rcx, [rbp + 24]  ; Accessing the third argument
-    mov rcx, rdx
+    mov rbx, rdi ; dst
 
-    mov rbx, rdi
-
-    cmp rdi, rsi
+    cmp rdi, rsi ; src
     jg copy_from_the_end
 
 copy_at_first:
