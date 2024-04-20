@@ -1,32 +1,32 @@
-global _asmFunc
 section .text
-_asmFunc:
-    ; Аргументы:
-    ;   rdi = указатель на исходную строку
-    ;   rsi = указатель на целевую строку
-    ;   rdx = длина копируемой строки
+    global asmFunc
 
-    ; Проверка, если длина равна нулю
-    test    rdx, rdx
-    jz      .end
+asmFunc:
+    ; mov rbp, rsp
 
-    ; Копирование строки
-    .copy_loop:
-        ; Загрузка байта из исходной строки
-        movzx   eax, byte [rdi]
+    ; mov rdi, [rbp + 8]  ; Accessing the first argument
+    ; mov rsi, [rbp + 12]  ; Accessing the second argument
+    ; mov rcx, [rbp + 24]  ; Accessing the third argument
+    mov rcx, rdx
 
-        ; Запись байта в целевую строку
-        mov     [rsi], al
+    mov rbx, rdi
 
-        ; Переход к следующему байту
-        inc     rdi
-        inc     rsi
-        dec     rdx
+    cmp rdi, rsi
+    jg copy_from_the_end
 
-        ; Проверка, достигли ли конца строки
-        test    rdx, rdx
-        jnz     .copy_loop
+copy_at_first:
+        rep movsb
+        jmp finish
 
-    .end:
-    ret
+copy_from_the_end:
+        add rdi, rcx
+        add rsi, rcx
+        dec rdi
+        dec rsi
 
+        std
+        rep movsb
+        cld
+
+finish:
+        ret

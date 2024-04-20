@@ -1,9 +1,11 @@
 ASMFLAGS := -f elf64
-CFLAGS := -std=c++23 -Wall -Werror
+CFLAGS := -std=c++23 -Wall -Werror -fverbose-asm
 EXEC := app.exe
 
 ASMC := nasm
 CPPC := g++
+
+all: build run clean
 
 build:
 	$(ASMC) $(ASMFLAGS) -o ass.o ass.asm

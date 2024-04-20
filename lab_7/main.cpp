@@ -1,28 +1,11 @@
 #include <iostream>
 #include <cstring>
 
-#define STR_SIZE 20
+#define STR_SIZE 20 + 1
 #define OK 0
 #define ERR 1
 
-int str_read(FILE *f, char *str, size_t size)
-{
-    size_t len;
-
-    if (!fgets(str, size, f))
-        return ERR;
-    len = strlen(str);
-    if (len && str[len - 1] == '\n')
-    {
-        str[len - 1] = 0;
-        len--;
-    }
-    if (!len)
-        return ERR;
-    return OK;
-}
-
-extern "C" long _asmFunc(const char *src, const char *dst, size_t size);
+extern "C" void asmFunc(const char *dst, const char *src, size_t size);
 
 size_t cFunc(const char *str)
 {
@@ -46,22 +29,40 @@ size_t cFunc(const char *str)
 
 int main()
 {
-    char str1[STR_SIZE], str2[STR_SIZE];
-    int rc = str_read(stdin, str1, STR_SIZE);
-    if (rc)
-        return rc;
+    std::cout << "Размер строки:" << std::endl;
+    std::cout << "Введите строку: ";
+    std::string str_cnt;
+    std::cin >> str_cnt;
+    std::cout << "Размер: " << cFunc(str_cnt.c_str()) << std::endl;
+    std::cout << "Размер пустой строки: " << cFunc("") << std::endl;
 
-    std::cout << cFunc(str1) << std::endl;
+    std::cout << "Две строки:" << std::endl;
+    std::cout << "Введите первую строку: ";
+    std::string str1;
+    std::cin >> str1;
+    std::cout << "Введите вторую строку: ";
+    std::string str2;
+    std::cin >> str2;
+    std::string buf1, buf2;
 
-    rc = str_read(stdin, str2, STR_SIZE);
-    if (rc)
-        return rc;
+    buf1 = str1;
+    buf2 = str2;
+    std::cout << "Две отдельных строки:" << std::endl;
+    std::cout << buf1 << " " << buf2 << std::endl;
+    asmFunc(buf1.c_str(), buf2.c_str(), 2);
+    std::cout << buf1 << " " << buf2 << std::endl;
 
-    std::cout << str1 << " " << str2 << std::endl;
+    buf2 = str2;
+    std::cout << "Первая строка - с 3 символа второй: " << std::endl;
+    std::cout << &buf2[2] << " " << buf2 << std::endl;
+    asmFunc(&buf2[2], buf2.c_str(), 2);
+    std::cout << &buf2[2] << " " << buf2 << std::endl;
 
-    _asmFunc(str1, str2, STR_SIZE);
-
-    std::cout << str1 << " " << str2 << std::endl;
+    buf1 = str1;
+    std::cout << "Вторая строка - с 3 символа первой: " << std::endl;
+    std::cout << buf1 << " " << &buf1[2] << std::endl;
+    asmFunc(buf1.c_str(), &buf1[2], 2);
+    std::cout << buf1 << " " << &buf1[2] << std::endl;
 
     return OK;
 }
