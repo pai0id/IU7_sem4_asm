@@ -39,8 +39,8 @@ double chordMethod(double a, double b, int iterations)
     double x0 = a;
     double x1 = b;
     double eps = EPS;
-    double five = 5.0;
-    double two = 2.0;
+    int five = 5;
+    int two = 2;
     
     asm volatile (
         "movq %[iterations], %%rcx\n"
@@ -94,7 +94,7 @@ int main()
 {
     double a = 1;
     double b = 2;
-    int iterations = 10;
+    int iterations = 15;
     
     double root = chordMethod(a, b, iterations);
     

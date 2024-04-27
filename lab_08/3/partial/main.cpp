@@ -75,7 +75,7 @@ double chordMethod(double a, double b, int iterations)
 int main()
 {
     double a = 1;
-    double b = 2;
+    double b = 4;
     int iterations = 10;
     
     double root = chordMethod(a, b, iterations);

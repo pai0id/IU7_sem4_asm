@@ -31,7 +31,7 @@ void check_sum(Type a, Type b)
         if (i % 10 == 9)
         {
             avr = calc_mean(test_arr, i + 1);
-            if (calc_rse(i + 1, avr, calc_stdev(test_arr, i + 1, avr)) <= 5)
+            if (calc_rse(i + 1, avr, calc_stdev(test_arr, i + 1, avr)) <= 3)
             {
                 i++;
                 break;
@@ -63,7 +63,7 @@ void check_mul(Type a, Type b)
         if (i % 10 == 9)
         {
             avr = calc_mean(test_arr, i + 1);
-            if (calc_rse(i + 1, avr, calc_stdev(test_arr, i + 1, avr)) <= 5)
+            if (calc_rse(i + 1, avr, calc_stdev(test_arr, i + 1, avr)) <= 3)
             {
                 i++;
                 break;
@@ -104,7 +104,7 @@ void check_sum_asm(Type a, Type b)
         if (i % 10 == 9)
         {
             avr = calc_mean(test_arr, i + 1);
-            if (calc_rse(i + 1, avr, calc_stdev(test_arr, i + 1, avr)) <= 5)
+            if (calc_rse(i + 1, avr, calc_stdev(test_arr, i + 1, avr)) <= 3)
             {
                 i++;
                 break;
@@ -145,7 +145,7 @@ void check_mul_asm(Type a, Type b)
         if (i % 10 == 9)
         {
             avr = calc_mean(test_arr, i + 1);
-            if (calc_rse(i + 1, avr, calc_stdev(test_arr, i + 1, avr)) <= 5)
+            if (calc_rse(i + 1, avr, calc_stdev(test_arr, i + 1, avr)) <= 3)
             {
                 i++;
                 break;

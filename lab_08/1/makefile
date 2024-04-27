@@ -4,7 +4,7 @@ build:
 run:
 	./app.exe
 
-all: build run clean
+all: build run disassembly clean
 
 disassembly:
 	g++ -c diss.cpp -mfpmath=387 -mhard-float -o diss.o

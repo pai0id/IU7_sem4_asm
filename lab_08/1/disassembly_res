@@ -1,0 +1,112 @@
+
+diss.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <main>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	55                   	push   %rbp
+   5:	48 89 e5             	mov    %rsp,%rbp
+   8:	48 83 ec 20          	sub    $0x20,%rsp
+   c:	d9 05 00 00 00 00    	flds   0x0(%rip)        # 12 <main+0x12>
+  12:	d9 5d e8             	fstps  -0x18(%rbp)
+  15:	d9 05 00 00 00 00    	flds   0x0(%rip)        # 1b <main+0x1b>
+  1b:	d9 5d ec             	fstps  -0x14(%rbp)
+  1e:	f3 0f 10 45 ec       	movss  -0x14(%rbp),%xmm0
+  23:	8b 45 e8             	mov    -0x18(%rbp),%eax
+  26:	0f 28 c8             	movaps %xmm0,%xmm1
+  29:	66 0f 6e c0          	movd   %eax,%xmm0
+  2d:	e8 00 00 00 00       	call   32 <main+0x32>
+  32:	f3 0f 10 45 ec       	movss  -0x14(%rbp),%xmm0
+  37:	8b 45 e8             	mov    -0x18(%rbp),%eax
+  3a:	0f 28 c8             	movaps %xmm0,%xmm1
+  3d:	66 0f 6e c0          	movd   %eax,%xmm0
+  41:	e8 00 00 00 00       	call   46 <main+0x46>
+  46:	dd 05 00 00 00 00    	fldl   0x0(%rip)        # 4c <main+0x4c>
+  4c:	dd 5d f0             	fstpl  -0x10(%rbp)
+  4f:	dd 05 00 00 00 00    	fldl   0x0(%rip)        # 55 <main+0x55>
+  55:	dd 5d f8             	fstpl  -0x8(%rbp)
+  58:	f2 0f 10 45 f8       	movsd  -0x8(%rbp),%xmm0
+  5d:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  61:	66 0f 28 c8          	movapd %xmm0,%xmm1
+  65:	66 48 0f 6e c0       	movq   %rax,%xmm0
+  6a:	e8 00 00 00 00       	call   6f <main+0x6f>
+  6f:	f2 0f 10 45 f8       	movsd  -0x8(%rbp),%xmm0
+  74:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  78:	66 0f 28 c8          	movapd %xmm0,%xmm1
+  7c:	66 48 0f 6e c0       	movq   %rax,%xmm0
+  81:	e8 00 00 00 00       	call   86 <main+0x86>
+  86:	b8 00 00 00 00       	mov    $0x0,%eax
+  8b:	c9                   	leave  
+  8c:	c3                   	ret    
+
+Disassembly of section .text._Z3sumIfET_S0_S0_:
+
+0000000000000000 <_Z3sumIfET_S0_S0_>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	55                   	push   %rbp
+   5:	48 89 e5             	mov    %rsp,%rbp
+   8:	f3 0f 11 45 ec       	movss  %xmm0,-0x14(%rbp)
+   d:	f3 0f 11 4d e8       	movss  %xmm1,-0x18(%rbp)
+  12:	d9 45 ec             	flds   -0x14(%rbp)
+  15:	d8 45 e8             	fadds  -0x18(%rbp)
+  18:	d9 5d fc             	fstps  -0x4(%rbp)
+  1b:	d9 45 fc             	flds   -0x4(%rbp)
+  1e:	d9 5d e4             	fstps  -0x1c(%rbp)
+  21:	f3 0f 10 45 e4       	movss  -0x1c(%rbp),%xmm0
+  26:	5d                   	pop    %rbp
+  27:	c3                   	ret    
+
+Disassembly of section .text._Z3mulIfET_S0_S0_:
+
+0000000000000000 <_Z3mulIfET_S0_S0_>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	55                   	push   %rbp
+   5:	48 89 e5             	mov    %rsp,%rbp
+   8:	f3 0f 11 45 ec       	movss  %xmm0,-0x14(%rbp)
+   d:	f3 0f 11 4d e8       	movss  %xmm1,-0x18(%rbp)
+  12:	d9 45 ec             	flds   -0x14(%rbp)
+  15:	d8 4d e8             	fmuls  -0x18(%rbp)
+  18:	d9 5d fc             	fstps  -0x4(%rbp)
+  1b:	d9 45 fc             	flds   -0x4(%rbp)
+  1e:	d9 5d e4             	fstps  -0x1c(%rbp)
+  21:	f3 0f 10 45 e4       	movss  -0x1c(%rbp),%xmm0
+  26:	5d                   	pop    %rbp
+  27:	c3                   	ret    
+
+Disassembly of section .text._Z3sumIdET_S0_S0_:
+
+0000000000000000 <_Z3sumIdET_S0_S0_>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	55                   	push   %rbp
+   5:	48 89 e5             	mov    %rsp,%rbp
+   8:	f2 0f 11 45 e8       	movsd  %xmm0,-0x18(%rbp)
+   d:	f2 0f 11 4d e0       	movsd  %xmm1,-0x20(%rbp)
+  12:	dd 45 e8             	fldl   -0x18(%rbp)
+  15:	dc 45 e0             	faddl  -0x20(%rbp)
+  18:	dd 5d f8             	fstpl  -0x8(%rbp)
+  1b:	dd 45 f8             	fldl   -0x8(%rbp)
+  1e:	dd 5d d8             	fstpl  -0x28(%rbp)
+  21:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+  25:	66 48 0f 6e c0       	movq   %rax,%xmm0
+  2a:	5d                   	pop    %rbp
+  2b:	c3                   	ret    
+
+Disassembly of section .text._Z3mulIdET_S0_S0_:
+
+0000000000000000 <_Z3mulIdET_S0_S0_>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	55                   	push   %rbp
+   5:	48 89 e5             	mov    %rsp,%rbp
+   8:	f2 0f 11 45 e8       	movsd  %xmm0,-0x18(%rbp)
+   d:	f2 0f 11 4d e0       	movsd  %xmm1,-0x20(%rbp)
+  12:	dd 45 e8             	fldl   -0x18(%rbp)
+  15:	dc 4d e0             	fmull  -0x20(%rbp)
+  18:	dd 5d f8             	fstpl  -0x8(%rbp)
+  1b:	dd 45 f8             	fldl   -0x8(%rbp)
+  1e:	dd 5d d8             	fstpl  -0x28(%rbp)
+  21:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+  25:	66 48 0f 6e c0       	movq   %rax,%xmm0
+  2a:	5d                   	pop    %rbp
+  2b:	c3                   	ret    

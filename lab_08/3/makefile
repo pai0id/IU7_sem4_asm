@@ -16,5 +16,8 @@ run_full:
 
 all: build_partial run_partial build_full run_full clean
 
+partial: build_partial run_partial clean
+full: build_full run_full clean
+
 clean: 
 	rm -rf ./*.exe ./*.o
