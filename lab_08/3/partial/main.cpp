@@ -3,7 +3,9 @@
 
 using namespace std;
 
-double function(double x)
+#define EPS 1e-8
+
+double f(double x)
 {
     double result;
     double five = 5.0;
@@ -25,16 +27,22 @@ double function(double x)
 
 double chordMethod(double a, double b, int iterations)
 {
+    double f0 = f(a);
+    double f1 = f(b);
+    if (f0 * f1 > 0)
+        throw;
+    else if (fabs(f0) < EPS)
+        return a;
+    else if (fabs(f1) < EPS)
+        return b;
+    
     double x0 = a;
     double x1 = b;
     double x2;
     
     for (int i = 0; i < iterations; ++i)
     {
-        double f0 = function(x0);
-        double f1 = function(x1);
-        
-        if (fabs(f1 - f0) < 1e-10)
+        if (fabs(f1 - f0) < EPS)
         {
             cout << "Root found with precision within tolerance." << endl;
             break;
@@ -57,6 +65,8 @@ double chordMethod(double a, double b, int iterations)
         
         x0 = x1;
         x1 = x2;
+        f0 = f(x0);
+        f1 = f(x1);
     }
     
     return x1;
