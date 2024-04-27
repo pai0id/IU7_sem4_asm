@@ -50,7 +50,7 @@ double chordMethod(double a, double b, int iterations)
         "fsubl %[f0]\n"
         "fabs\n"
         "fldl %[eps]\n"
-        "fcomp\n"
+        "fcompp\n"
         "jl end_asm\n"
 
         "fldl %[x1]\n"
