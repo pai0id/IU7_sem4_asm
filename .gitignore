@@ -7,3 +7,5 @@ lec_docs
 CodeView
 .vscode
 exmpl
+*.o
+*.exe
