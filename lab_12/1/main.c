@@ -11,7 +11,7 @@ int getLenC(char *str) {
 }
 
 int getLenAsm(char *str) {
-    int res = 0;
+    int res;
     
     asm volatile (
         "str	wzr, [sp, #28]\n\t"
@@ -20,20 +20,20 @@ int getLenAsm(char *str) {
         "add	w0, w0, #0x1\n\t"
         "str	w0, [sp, #28]\n\t"
         "ldrsw	x0, [sp, #28]\n\t"
-        "ldr	x1, [sp, #8]\n\t"
+        "ldr	x1, %[str]\n\t"
         "add	x0, x1, x0\n\t"
         "ldrb	w0, [x0]\n\t"
         "cmp	w0, #0x0\n\t"
         "b.ne	loop\n\t"
-        "ldr	w0, [sp, #28]\n\t"
+        "ldr	%[result], [sp, #28]\n\t"
         : [result] "=r" (res)
-        : [str] "r" (str));
+        : [str] "m" (str));
 
     return res;
 }
 
 int main() {
-    char str[MAX_LEN] = "123456789";
+    char str[MAX_LEN] = "1234567";
 
     printf("StrLen = %d\n", getLenAsm(str));
     
