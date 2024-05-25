@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX_LEN 10000
+#define MAX_LEN 100000
 
 void fillRndArr(int *arr, size_t n) {
     for (int i = 0; i < n; i++) {
@@ -35,7 +35,7 @@ int mulArrAsm(int *arr1, size_t n1, int *arr2, size_t n2, int *res) {
     }
 
     size_t i;
-    for (i = 0; i <= n1 - 3; i += 4) {
+    for (i = 0; i <= n1 - 4; i += 4) {
         asm volatile (
             "ld1 {v0.4S}, [%[arr1]]\n\t"
             "ld1 {v1.4S}, [%[arr2]]\n\t"
@@ -68,7 +68,8 @@ int main() {
     fillRndArr(arr1, MAX_LEN);
     int arr2[MAX_LEN];
     fillRndArr(arr2, MAX_LEN);
-    int res[MAX_LEN];
+    int resC[MAX_LEN];
+    int resAsm[MAX_LEN];
 
     if (c == 'y') {
         printf("ARR1\n");
@@ -78,7 +79,7 @@ int main() {
     }
 
     start = clock();
-    rc = mulArrC(arr1, MAX_LEN, arr2, MAX_LEN, res);
+    rc = mulArrC(arr1, MAX_LEN, arr2, MAX_LEN, resC);
     end = clock();
     if (rc) {
         printf("ERR");
@@ -88,12 +89,12 @@ int main() {
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
     printf("mulArrC\n");
     if (c == 'y') {
-        prnArr(res, MAX_LEN);
+        prnArr(resC, MAX_LEN);
     }
     printf("Time: %f\n", cpu_time_used);
 
     start = clock();
-    rc = mulArrAsm(arr1, MAX_LEN, arr2, MAX_LEN, res);
+    rc = mulArrAsm(arr1, MAX_LEN, arr2, MAX_LEN, resAsm);
     end = clock();
     if (rc) {
         printf("ERR");
@@ -103,7 +104,7 @@ int main() {
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
     printf("mulArrAsm\n");
     if (c == 'y') {
-        prnArr(res, MAX_LEN);
+        prnArr(resAsm, MAX_LEN);
     }
     printf("Time: %f\n", cpu_time_used);
     

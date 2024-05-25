@@ -35,7 +35,8 @@ int getLenAsm(char *str) {
 int main() {
     char str[MAX_LEN] = "1234567";
 
-    printf("StrLen = %d\n", getLenAsm(str));
+    printf("StrLenC = %d\n", getLenC(str));
+    printf("StrLenAsm = %d\n", getLenAsm(str));
     
     return 0;
 }
